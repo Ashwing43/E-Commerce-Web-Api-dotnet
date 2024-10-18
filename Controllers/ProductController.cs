@@ -51,15 +51,15 @@ namespace ECommerceWebApi.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] CreateProductDto createProductDto){
+        public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] UpdateProductDto updateProductDto){
             Product product = await _productService.GetProductByIdAsync(id);
             if(product == null){
                 return NotFound();
             }
-            product.Name = createProductDto.Name;
-            product.Price = createProductDto.Price;
-            product.Quantity = createProductDto.Quantity;
-            product.Description = createProductDto.Description;
+            product.Name = updateProductDto.Name;
+            product.Price = updateProductDto.Price;
+            product.Quantity = updateProductDto.Quantity;
+            product.Description = updateProductDto.Description;
             await _productService.SaveChangesAsync();
             return Ok(product.ToGetProductDto());
         }

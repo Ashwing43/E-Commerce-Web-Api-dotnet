@@ -24,6 +24,6 @@ namespace ECommerceWebApi.Dtos.Product
         [Required]
         [MinLength(0)]
         [MaxLength(250, ErrorMessage = "Length cannot be greater than 250.")]
-        public string Description { get; set; } = string.Empty;   
+        public string Description { get; set; } = string.Empty;
     }
 }

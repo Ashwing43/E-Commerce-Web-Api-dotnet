@@ -25,7 +25,8 @@ namespace ECommerceWebApi.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            if(!ModelState.IsValid){
+            if (!ModelState.IsValid)
+            {
                 return BadRequest(ModelState);
             }
 
@@ -35,14 +36,16 @@ namespace ECommerceWebApi.Controllers
         }
 
         [HttpGet("{id:Guid}")]
-        public async Task<IActionResult> GetById([FromRoute] Guid id) 
+        public async Task<IActionResult> GetById([FromRoute] Guid id)
         {
-            if(!ModelState.IsValid){
+            if (!ModelState.IsValid)
+            {
                 return BadRequest(ModelState);
             }
 
-            User user  = await _userService.GetByIdAsync(id);
-            if(user == null){
+            User user = await _userService.GetByIdAsync(id);
+            if (user == null)
+            {
                 return NotFound();
             }
             return Ok(user.ToGetUserDto());
@@ -51,7 +54,8 @@ namespace ECommerceWebApi.Controllers
         [HttpPost]
         public async Task<IActionResult> Add([FromBody] CreateUserDto userDto)
         {
-            if(!ModelState.IsValid){
+            if (!ModelState.IsValid)
+            {
                 return BadRequest(ModelState);
             }
 
@@ -63,12 +67,13 @@ namespace ECommerceWebApi.Controllers
         [Route("{id:Guid}")]
         public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] UpdateUserDto updateUserDto)
         {
-            if(!ModelState.IsValid){
+            if (!ModelState.IsValid)
+            {
                 return BadRequest(ModelState);
             }
 
             var userModel = await _userService.GetByIdAsync(id);
-            if(userModel == null)
+            if (userModel == null)
             {
                 return NotFound();
             }
@@ -82,18 +87,19 @@ namespace ECommerceWebApi.Controllers
         [Route("{id:Guid}")]
         public async Task<IActionResult> Delete([FromRoute] Guid id)
         {
-            if(!ModelState.IsValid){
+            if (!ModelState.IsValid)
+            {
                 return BadRequest(ModelState);
             }
-            
+
             var userModel = await _userService.GetByIdAsync(id);
-            if(userModel == null)
+            if (userModel == null)
             {
                 return NotFound();
             }
             _userService.Delete(userModel);
             await _userService.SaveChangesAsync();
-            return NoContent(); 
+            return NoContent();
         }
     }
 }

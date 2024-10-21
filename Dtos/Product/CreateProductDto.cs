@@ -16,11 +16,11 @@ namespace ECommerceWebApi.Dtos.Product
         [Required]
         [Range(1, 100000000, ErrorMessage = "Value cannot must be in the range [1, 100000000].")]
         public decimal Price { get; set; }
-        
+
         [Required]
         [Range(1, 10000, ErrorMessage = "Value cannot must be in the range [1, 10000].")]
         public int Quantity { get; set; }
-        
+
         [Required]
         [MinLength(0)]
         [MaxLength(250, ErrorMessage = "Length cannot be greater than 250.")]

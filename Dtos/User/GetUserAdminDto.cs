@@ -7,6 +7,6 @@ namespace ECommerceWebApi.Dtos.User
 {
     public class GetUserAdminDto : GetUserDto
     {
-        
+
     }
 }

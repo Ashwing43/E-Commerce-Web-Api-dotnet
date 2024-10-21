@@ -9,7 +9,7 @@ namespace ECommerceWebApi.Models
     {
         #region Fields
         public List<Address> Addresses = new List<Address>();
-        
+
         public Queue<string> notifications = new Queue<string>();
         #endregion
 

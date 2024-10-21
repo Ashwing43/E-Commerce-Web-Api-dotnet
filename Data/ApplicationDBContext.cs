@@ -10,7 +10,7 @@ namespace ECommerceWebApi.Data
     public class ApplicationDBContext : DbContext
     {
         public ApplicationDBContext(DbContextOptions dbContextOptions) : base(dbContextOptions)
-        {    
+        {
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

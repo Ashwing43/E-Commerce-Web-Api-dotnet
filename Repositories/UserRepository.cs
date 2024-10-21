@@ -12,7 +12,8 @@ namespace ECommerceWebApi.Repositories
     public class UserRepository : IUserRepository
     {
         private readonly ApplicationDBContext _dbContext;
-        public UserRepository(ApplicationDBContext applicationDBContext){
+        public UserRepository(ApplicationDBContext applicationDBContext)
+        {
             _dbContext = applicationDBContext;
         }
 
@@ -35,10 +36,12 @@ namespace ECommerceWebApi.Repositories
             return user;
         }
 
-        public async Task SaveChangesAsync(){
+        public async Task SaveChangesAsync()
+        {
             await _dbContext.SaveChangesAsync();
         }
-        public void Delete(User userModel){
+        public void Delete(User userModel)
+        {
             _dbContext.User.Remove(userModel);
         }
     }

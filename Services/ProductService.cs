@@ -8,6 +8,7 @@ using ECommerceWebApi.Data;
 using ECommerceWebApi.Dtos.Product;
 using ECommerceWebApi.Mappers;
 using ECommerceWebApi.Models;
+using ECommerceWebApi.QueryObjects;
 using ECommerceWebApi.Repositories;
 
 namespace ECommerceWebApi.Services
@@ -16,16 +17,17 @@ namespace ECommerceWebApi.Services
     {
         private readonly IProductRepository _productRepository;
 
-        public ProductService(IProductRepository productRepository){
+        public ProductService(IProductRepository productRepository)
+        {
             _productRepository = productRepository;
         }
 
-        public async Task<List<Product>> GetAllProductsAsync()
+        public async Task<List<Product>> GetAllProductsAsync(QueryObject queryObject)
         {
-            var products = await _productRepository.GetAllProductsAsync();
+            var products = await _productRepository.GetAllProductsAsync(queryObject);
             return products;
         }
-        
+
         public async Task<Product> GetProductByIdAsync(Guid id)
         {
             return await _productRepository.GetProductByIdAsync(id);
@@ -43,7 +45,8 @@ namespace ECommerceWebApi.Services
         }
 
 
-        public async Task SaveChangesAsync(){
+        public async Task SaveChangesAsync()
+        {
             await _productRepository.SaveChangesAsync();
         }
     }

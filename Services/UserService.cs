@@ -41,11 +41,13 @@ namespace ECommerceWebApi.Services
             User user = await _userRepository.GetUserByIdAsync(id);
         }
 
-        public async Task SaveChangesAsync(){
+        public async Task SaveChangesAsync()
+        {
             await _userRepository.SaveChangesAsync();
         }
 
-        public void Delete(User userModel){
+        public void Delete(User userModel)
+        {
             _userRepository.Delete(userModel);
         }
     }

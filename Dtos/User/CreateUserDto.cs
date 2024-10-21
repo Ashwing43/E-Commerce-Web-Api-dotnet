@@ -14,7 +14,7 @@ namespace ECommerceWebApi.Dtos
         [MinLength(1, ErrorMessage = "Length cannot be less than 1.")]
         [MaxLength(50, ErrorMessage = "Length cannot be greater than 50.")]
         public string Name { get; set; } = string.Empty;
-        
+
         [Required]
         [MinLength(1, ErrorMessage = "Length cannot be less than 1.")]
         [MaxLength(50, ErrorMessage = "Length cannot be greater than 50.")]

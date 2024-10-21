@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using ECommerceWebApi.Dtos.Product;
 using ECommerceWebApi.Mappers;
 using ECommerceWebApi.Models;
+using ECommerceWebApi.QueryObjects;
 using ECommerceWebApi.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
@@ -24,15 +25,17 @@ namespace ECommerceWebApi.Controllers
             _productService = productService;
         }
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAll([FromQuery] QueryObject queryObject)
         {
-            if(!ModelState.IsValid){
+            if (!ModelState.IsValid)
+            {
                 return BadRequest(ModelState);
             }
 
-            var products = await _productService.GetAllProductsAsync();
+            var products = await _productService.GetAllProductsAsync(queryObject);
             var productDtos = products.Select(x => x.ToGetProductDto());
-            if(products == null){
+            if (products == null)
+            {
                 return NotFound();
             }
             return Ok(productDtos);
@@ -41,12 +44,14 @@ namespace ECommerceWebApi.Controllers
         [HttpGet("{id:Guid}")]
         public async Task<IActionResult> GetById([FromRoute] Guid id)
         {
-            if(!ModelState.IsValid){
+            if (!ModelState.IsValid)
+            {
                 return BadRequest(ModelState);
             }
 
             var product = await _productService.GetProductByIdAsync(id);
-            if(product == null){
+            if (product == null)
+            {
                 return NotFound();
             }
             return Ok(product);
@@ -55,7 +60,8 @@ namespace ECommerceWebApi.Controllers
         [HttpPost]
         public async Task<IActionResult> Add([FromBody] CreateProductDto createProductDto)
         {
-            if(!ModelState.IsValid){
+            if (!ModelState.IsValid)
+            {
                 return BadRequest(ModelState);
             }
 
@@ -64,13 +70,16 @@ namespace ECommerceWebApi.Controllers
         }
 
         [HttpPut("{id:Guid}")]
-        public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] UpdateProductDto updateProductDto){
-            if(!ModelState.IsValid){
+        public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] UpdateProductDto updateProductDto)
+        {
+            if (!ModelState.IsValid)
+            {
                 return BadRequest(ModelState);
             }
 
             Product product = await _productService.GetProductByIdAsync(id);
-            if(product == null){
+            if (product == null)
+            {
                 return NotFound();
             }
             product.Name = updateProductDto.Name;
@@ -82,14 +91,16 @@ namespace ECommerceWebApi.Controllers
         }
 
         [HttpDelete("{id:Guid}")]
-        public  async Task<IActionResult> Delete([FromRoute] Guid id)
+        public async Task<IActionResult> Delete([FromRoute] Guid id)
         {
-            if(!ModelState.IsValid){
+            if (!ModelState.IsValid)
+            {
                 return BadRequest(ModelState);
             }
-            
+
             Product product = await _productService.GetProductByIdAsync(id);
-            if(product == null){
+            if (product == null)
+            {
                 return NotFound();
             }
             _productService.DeleteProduct(product);

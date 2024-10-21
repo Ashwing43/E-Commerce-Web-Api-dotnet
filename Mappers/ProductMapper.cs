@@ -7,10 +7,12 @@ using ECommerceWebApi.Models;
 
 namespace ECommerceWebApi.Mappers
 {
-    public static  class ProductMapper
+    public static class ProductMapper
     {
-        public static Product ToProduct(this CreateProductDto createProductDto){
-            return new Product{
+        public static Product ToProduct(this CreateProductDto createProductDto)
+        {
+            return new Product
+            {
                 Name = createProductDto.Name,
                 Price = createProductDto.Price,
                 Quantity = createProductDto.Quantity,
@@ -18,8 +20,10 @@ namespace ECommerceWebApi.Mappers
             };
         }
 
-        public static GetProductDto ToGetProductDto(this Product product){
-            return new GetProductDto(){
+        public static GetProductDto ToGetProductDto(this Product product)
+        {
+            return new GetProductDto()
+            {
                 Id = product.Id,
                 Name = product.Name,
                 Price = product.Price,

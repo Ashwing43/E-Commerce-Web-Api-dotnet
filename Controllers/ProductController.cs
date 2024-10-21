@@ -9,6 +9,7 @@ using ECommerceWebApi.Mappers;
 using ECommerceWebApi.Models;
 using ECommerceWebApi.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace ECommerceWebApi.Controllers
 {
@@ -25,6 +26,10 @@ namespace ECommerceWebApi.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
+            if(!ModelState.IsValid){
+                return BadRequest(ModelState);
+            }
+
             var products = await _productService.GetAllProductsAsync();
             var productDtos = products.Select(x => x.ToGetProductDto());
             if(products == null){
@@ -33,9 +38,13 @@ namespace ECommerceWebApi.Controllers
             return Ok(productDtos);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id:Guid}")]
         public async Task<IActionResult> GetById([FromRoute] Guid id)
         {
+            if(!ModelState.IsValid){
+                return BadRequest(ModelState);
+            }
+
             var product = await _productService.GetProductByIdAsync(id);
             if(product == null){
                 return NotFound();
@@ -46,12 +55,20 @@ namespace ECommerceWebApi.Controllers
         [HttpPost]
         public async Task<IActionResult> Add([FromBody] CreateProductDto createProductDto)
         {
+            if(!ModelState.IsValid){
+                return BadRequest(ModelState);
+            }
+
             var product = await _productService.AddProductAsync(createProductDto);
             return Ok(product);
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("{id:Guid}")]
         public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] UpdateProductDto updateProductDto){
+            if(!ModelState.IsValid){
+                return BadRequest(ModelState);
+            }
+
             Product product = await _productService.GetProductByIdAsync(id);
             if(product == null){
                 return NotFound();
@@ -64,9 +81,13 @@ namespace ECommerceWebApi.Controllers
             return Ok(product.ToGetProductDto());
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("{id:Guid}")]
         public  async Task<IActionResult> Delete([FromRoute] Guid id)
         {
+            if(!ModelState.IsValid){
+                return BadRequest(ModelState);
+            }
+            
             Product product = await _productService.GetProductByIdAsync(id);
             if(product == null){
                 return NotFound();

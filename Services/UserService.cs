@@ -19,7 +19,7 @@ namespace ECommerceWebApi.Services
 
         public async Task<GetUserDto> AddAsync(CreateUserDto userDto)
         {
-            var userModel = userDto.ToUser();
+            User userModel = (userDto.Role == UserRole.Admin) ? (Admin)userDto.ToUser() : (Customer)userDto.ToUser();
             GetUserDto getUserDto = await _userRepository.AddUserAsync(userModel);
             await _userRepository.SaveChangesAsync();
             return getUserDto;
